@@ -6,6 +6,8 @@
 #include <Utils/MathUtils.hpp>
 #include <Utils/VectorUtils.hpp>
 
+#include <cmath>
+
 namespace obe
 {
     namespace Graphics
@@ -63,7 +65,7 @@ namespace obe
 
         void LevelSprite::addAtr(const std::string& atr)
         {
-            m_currentAtr.push_back(atr);
+            m_currentAtr.emplace_back(atr);
         }
 
         void LevelSprite::removeAtrByIndex(int index)
@@ -86,7 +88,7 @@ namespace obe
         {
             m_rotation += addRotate;
             if (m_rotation < 0) m_rotation += 360;
-            m_rotation = (static_cast<int>(m_rotation) % 360) + (m_rotation - floor(m_rotation));
+            m_rotation = std::fmod(m_rotation, 360.f)
             m_sprite.setRotation(m_rotation);
         }
 
